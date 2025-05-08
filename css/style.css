@@ -1,0 +1,35 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: rgb(185, 192, 212);
+}
+
+header {
+    background-color: rgba(157, 173, 255, 0.885);
+    position: sticky;
+    height: 80px;
+    top: 0;
+    z-index: 1;
+}
+
+.menu_complete {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    list-style: none;
+    flex-wrap: wrap;
+}
+
+body > header,
+body > footer {
+  flex: 0;
+}
+
+body > section {
+  flex: 1;  
+}
