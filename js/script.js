@@ -5,7 +5,8 @@ const unixToTime = (unix) => {
 
 
 // Konstanten aus dem HTML-Dokument
-const selectedWeatherData = document.querySelector('#locations');
+const locationsAtSunset = document.querySelector('#locationsAtSunset');
+const locationsActual = document.querySelector('#locationsActual');
 
 
 // Daten der API abfragen
@@ -51,6 +52,7 @@ allWeatherData.forEach(data => {
         windSpeed: data.hourly.wind_speed_10m,
         windDirection: data.hourly.wind_direction_10m,
         sunset: unixToTime(data.daily.sunset[0]), // nur das erste Element verwenden
+        time: unixToTime(data.hourly.time[0]), // nur das erste Element verwenden
         longitude: data.longitude,
         latitude: data.latitude,
         sunsetIndex: sunsetIndex
@@ -61,11 +63,12 @@ console.log(sortedData)
 
 
 // Daten über DOM in HTML einfügen
-let outputHTML = '';
+let locationsAtSunsetHTML = '';
 
 sortedData.forEach(data => {
-    outputHTML += `
+    locationsAtSunsetHTML += `
     <div class="myLocations">
+        <h2>Zeit aktuell: ${data.time}</h2>
         <h2>Temperatur: ${data.temperature[data.sunsetIndex]}°</h2>
         <h2>Windgeschwindigkeit: ${data.windSpeed[data.sunsetIndex]} km/h</h2>
         <h2>Windrichtung: ${data.windDirection[data.sunsetIndex]}°</h2>
@@ -74,4 +77,20 @@ sortedData.forEach(data => {
     </div>`;
 });
 
-selectedWeatherData.innerHTML = outputHTML;
+locationsAtSunset.innerHTML = locationsAtSunsetHTML;
+
+let locationsActualHTML = '';
+
+sortedData.forEach(data => {
+    locationsActualHTML += `
+    <div class="myLocations">
+        <h2>Zeit aktuell: ${data.time}</h2>
+        <h2>Temperatur: ${data.temperature[0]}°</h2>
+        <h2>Windgeschwindigkeit: ${data.windSpeed[0]} km/h</h2>
+        <h2>Windrichtung: ${data.windDirection[0]}°</h2>
+        <h2>Sonnenuntergang: ${data.sunset}</h2>
+        <p>-------</p>
+    </div>`;
+});
+
+locationsActual.innerHTML = locationsActualHTML;
