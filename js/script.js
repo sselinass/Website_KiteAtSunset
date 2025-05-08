@@ -1,6 +1,6 @@
 // Konstante für Zeitumwandlung
-const unixToTime = (unix) => {
-    return new Date(unix * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+const unixToTime = (unix, timezone) => {
+    return new Date(unix * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', timeZone: timezone });
 };
 
 
@@ -11,7 +11,7 @@ const locationsActual = document.querySelector('#locationsActual');
 
 // Daten der API abfragen
 async function loadAllWeatherData() {
-    const url = 'https://api.open-meteo.com/v1/forecast?latitude=54,46.4,28.3,43,53&longitude=10,9.7,-14,3,-9&daily=sunset&hourly=temperature_2m,weather_code,wind_speed_10m,wind_direction_10m&forecast_days=1&timeformat=unixtime'; // mit korrekter API-URL ersetzen
+    const url = 'https://api.open-meteo.com/v1/forecast?latitude=54,46.4,28.3,43,53&longitude=10,9.7,-14,3,-9&daily=sunset&hourly=temperature_2m,weather_code,wind_speed_10m,wind_direction_10m&current=temperature_2m,wind_speed_10m,wind_direction_10m&timezone=Europe%2FBerlin,Europe%2FBerlin,Europe%2FBerlin,Europe%2FBerlin,Europe%2FDublin&forecast_days=1&timeformat=unixtime'; // mit korrekter API-URL ersetzen
     try {
         const response = await fetch(url);
         return await response.json();
@@ -49,10 +49,13 @@ allWeatherData.forEach(data => {
     
     sortedData.push({
         temperature: data.hourly.temperature_2m,
+        temperatureActual: data.current.temperature_2m,
         windSpeed: data.hourly.wind_speed_10m,
+        windSpeedActual: data.current.wind_speed_10m,
         windDirection: data.hourly.wind_direction_10m,
-        sunset: unixToTime(data.daily.sunset[0]), // nur das erste Element verwenden
-        time: unixToTime(data.hourly.time[0]), // nur das erste Element verwenden
+        windDirectionActual: data.current.wind_direction_10m,
+        sunset: unixToTime(data.daily.sunset[0], data.timezone), // nur das erste Element verwenden
+        time: unixToTime(data.current.time, data.timezone), // nur das erste Element verwenden
         longitude: data.longitude,
         latitude: data.latitude,
         sunsetIndex: sunsetIndex
@@ -85,9 +88,9 @@ sortedData.forEach(data => {
     locationsActualHTML += `
     <div class="myLocations">
         <h2>Zeit aktuell: ${data.time}</h2>
-        <h2>Temperatur: ${data.temperature[0]}°</h2>
-        <h2>Windgeschwindigkeit: ${data.windSpeed[0]} km/h</h2>
-        <h2>Windrichtung: ${data.windDirection[0]}°</h2>
+        <h2>Temperatur: ${data.temperatureActual}°</h2>
+        <h2>Windgeschwindigkeit: ${data.windSpeedActual} km/h</h2>
+        <h2>Windrichtung: ${data.windDirectionActual}°</h2>
         <h2>Sonnenuntergang: ${data.sunset}</h2>
         <p>-------</p>
     </div>`;
