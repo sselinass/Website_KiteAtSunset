@@ -42,12 +42,56 @@ function findClosestHourIndex(hourlyTimestamps, sunsetTimestamp) {
 }
 
 
+const spotInfo = [
+    {
+      lat: 54.0,
+      lng: 10.0,
+      name: "Kiel, DE",
+      description: "xxxx",
+      image: "images/kiel.jpg"
+    },
+    {
+      lat: 46.4,
+      lng: 9.68,
+      name: "Silvaplana, CH",
+      description: "xxxx",
+      image: "images/silvaplana.jpg"
+    },
+    {
+      lat: 28.3,
+      lng: -14.0,
+      name: "Fuerteventura, ES",
+      description: "xxxx",
+      image: "images/fuerteventura.jpg"
+    },
+    {
+      lat: 43.0,
+      lng: 3.0,
+      name: "Leucate, FRA",
+      description: "xxxx",
+      image: "images/leucate.jpg"
+    },
+    {
+      lat: 53.0,
+      lng: -9.0,
+      name: "Galway, IRL",
+      description: "xxxx",
+      image: "images/galway.jpg"
+    }
+  ];
+
+
 // Daten aus der API auswählen
 let sortedData = [];
 allWeatherData.forEach(data => {
-    let sunsetUnix = data.daily.sunset[0]
-    let sunsetIndex = findClosestHourIndex(data.hourly.time, sunsetUnix)
-    
+    let sunsetUnix = data.daily.sunset[0];
+    let sunsetIndex = findClosestHourIndex(data.hourly.time, sunsetUnix);
+
+    // Try to find the matching spot by comparing lat/lng
+    const match = spotInfo.find(spot =>
+        Math.abs(spot.lat - data.latitude) < 0.01 && Math.abs(spot.lng - data.longitude) < 0.01
+    );
+
     sortedData.push({
         temperature: data.hourly.temperature_2m,
         temperatureActual: data.current.temperature_2m,
@@ -55,13 +99,18 @@ allWeatherData.forEach(data => {
         windSpeedActual: data.current.wind_speed_10m,
         windDirection: data.hourly.wind_direction_10m,
         windDirectionActual: data.current.wind_direction_10m,
-        sunset: unixToTime(data.daily.sunset[0], data.timezone), // nur das erste Element verwenden
-        time: unixToTime(data.current.time, data.timezone), // nur das erste Element verwenden
+        sunset: unixToTime(data.daily.sunset[0], data.timezone),
+        time: unixToTime(data.current.time, data.timezone),
         longitude: data.longitude,
         latitude: data.latitude,
-        sunsetIndex: sunsetIndex
+        sunsetIndex: sunsetIndex,
+
+        // Add the extra info to the data
+        name: match?.name || "Unknown Spot",
+        description: match?.description || "No description available.",
+        image: match?.image || "images/default.jpg"
     });
-}); 
+});
 console.log(sortedData)
 
 
@@ -114,58 +163,20 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png'
   }).addTo(map);
   
 
-// kite spots
-const kiteSpots = [
-    {
-        name: "Kiel, DE",
-        lat: 54.0,
-        lng: 10.0,
-        description: "Coastal city on the Baltic Sea, known for steady winds and great kiteboarding.",
-        sunset: "Sonnenuntergang:",
-        wind: "Wind:",
-        windDirection: "Windrichtung:"
-    },
-    {
-        name: "Silvaplana, CH",
-        lat: 46.4,
-        lng: 9.68,
-        description: "Beautiful alpine lake with thermal winds and stunning mountain views.",
-        sunset: "Sonnenuntergang:",
-        wind: "Wind:",
-        windDirection: "Windrichtung:"
-    },
-    {
-        name: "Fuerteventura, ES",
-        lat: 28.3,
-        lng: -14.0,
-        description: "A top destination for year-round kiting and golden beaches.",
-        sunset: "Sonnenuntergang:",
-        wind: "Wind:",
-        windDirection: "Windrichtung:"
-    },
-    {
-        name: "Leucate, FRA",
-        lat: 43.0,
-        lng: 3.0,
-        description: "Strong Tramontana winds, flat water lagoons, and a top freestyle destination.",
-        sunset: "Sonnenuntergang:",
-        wind: "Wind:",
-        windDirection: "Windrichtung:"
-    },
-    {
-        name: "Galway, IRL",
-        lat: 53.0082,
-        lng: -9.008316,
-        description: "Wild Atlantic vibes with strong wind and great wave riding potential.",
-        sunset: `"Sonnenuntergang:" ${locationsActualHTML}`,
-        wind: "Wind:",
-        windDirection: "Windrichtung:"
-    }
-];
   
 // markers
-kiteSpots.forEach(spot => {
-    L.marker([spot.lat, spot.lng])
+sortedData.forEach(spot => {
+    const popupContent = `
+        <strong>${spot.name}</strong><br>
+        <img src="${spot.image}" alt="${spot.name}" style="width: 100%; max-height: 100px; object-fit: cover; border-radius: 8px;" /><br>
+        <em>${spot.description}</em><br><br>
+        Temperatur: ${spot.temperatureActual}°C<br>
+        Wind: ${spot.windSpeedActual} km/h<br>
+        Windrichtung: ${spot.windDirectionActual}°<br>
+        Sonnenuntergang: ${spot.sunset}
+    `;
+
+    L.marker([spot.latitude, spot.longitude])
         .addTo(map)
-        .bindPopup(`<strong>${spot.name}</strong><br>${spot.description}<br>${spot.sunset}${spot.wind}${spot.windDirection}`);
+        .bindPopup(popupContent);
 });
