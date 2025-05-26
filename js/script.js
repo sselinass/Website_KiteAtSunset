@@ -48,35 +48,35 @@ const spotInfo = [
       lng: 10.0,
       name: "Kiel, DE",
       description: "xxxx",
-      image: "images/kiel.jpg"
+      image: "assets/img/hamburg_n.jpeg"
     },
     {
       lat: 46.4,
       lng: 9.68,
       name: "Silvaplana, CH",
       description: "xxxx",
-      image: "images/silvaplana.jpg"
+      image: "assets/img/silvaplana_n.jpeg"
     },
     {
       lat: 28.3,
       lng: -14.0,
       name: "Fuerteventura, ES",
       description: "xxxx",
-      image: "images/fuerteventura.jpg"
+      image: "assets/img/fuerteventura_n.jpeg"
     },
     {
       lat: 43.0,
       lng: 3.0,
       name: "Leucate, FRA",
       description: "xxxx",
-      image: "images/leucate.jpg"
+      image: "assets/img/narbonne_n.jpeg"
     },
     {
       lat: 53.0,
       lng: -9.0,
       name: "Galway, IRL",
       description: "xxxx",
-      image: "images/galway.jpg"
+      image: "assets/img/galway_n.jpeg"
     }
   ];
 
@@ -108,7 +108,7 @@ allWeatherData.forEach(data => {
         // Add the extra info to the data
         name: match?.name || "Unknown Spot",
         description: match?.description || "No description available.",
-        image: match?.image || "images/default.jpg"
+        image: match?.image || "assets/imgs/default.jpg"
     });
 });
 console.log(sortedData)
