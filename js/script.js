@@ -97,3 +97,73 @@ sortedData.forEach(data => {
 });
 
 locationsActual.innerHTML = locationsActualHTML;
+
+
+// leaflet.js Karte initialisieren
+
+// Initialize the map
+const map = L.map('map').setView([50, 10], 4);
+      
+// Add OpenStreetMap tiles
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 19
+  }).addTo(map);
+  
+
+// kite spots
+const kiteSpots = [
+    {
+        name: "Kiel, DE",
+        lat: 54.0,
+        lng: 10.0,
+        description: "Coastal city on the Baltic Sea, known for steady winds and great kiteboarding.",
+        sunset: "Sonnenuntergang:",
+        wind: "Wind:",
+        windDirection: "Windrichtung:"
+    },
+    {
+        name: "Silvaplana, CH",
+        lat: 46.4,
+        lng: 9.68,
+        description: "Beautiful alpine lake with thermal winds and stunning mountain views.",
+        sunset: "Sonnenuntergang:",
+        wind: "Wind:",
+        windDirection: "Windrichtung:"
+    },
+    {
+        name: "Fuerteventura, ES",
+        lat: 28.3,
+        lng: -14.0,
+        description: "A top destination for year-round kiting and golden beaches.",
+        sunset: "Sonnenuntergang:",
+        wind: "Wind:",
+        windDirection: "Windrichtung:"
+    },
+    {
+        name: "Leucate, FRA",
+        lat: 43.0,
+        lng: 3.0,
+        description: "Strong Tramontana winds, flat water lagoons, and a top freestyle destination.",
+        sunset: "Sonnenuntergang:",
+        wind: "Wind:",
+        windDirection: "Windrichtung:"
+    },
+    {
+        name: "Lahinch, IRL",
+        lat: 53.0082,
+        lng: -9.008316,
+        description: "Wild Atlantic vibes with strong wind and great wave riding potential.",
+        sunset: "Sonnenuntergang:",
+        wind: "Wind:",
+        windDirection: "Windrichtung:"
+    }
+];
+  
+// markers
+kiteSpots.forEach(spot => {
+    L.marker([spot.lat, spot.lng])
+        .addTo(map)
+        .bindPopup(`<strong>${spot.name}</strong><br>${spot.description}<br>${spot.sunset}${spot.wind}${spot.windDirection}`);
+});

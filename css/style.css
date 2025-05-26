@@ -16,6 +16,7 @@ header {
     z-index: 2;
 }
 
+
 .menu_complete {
     display: flex;
     justify-content: space-between;
@@ -32,6 +33,11 @@ body > footer {
 
 body > section {
   flex: 1;  
+}
+
+footer {
+    position: sticky;
+    z-index: 2;
 }
 
 #map  {
