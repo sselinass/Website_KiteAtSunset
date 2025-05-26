@@ -5,8 +5,8 @@ const unixToTime = (unix, timezone) => {
 
 
 // Konstanten aus dem HTML-Dokument
-const locationsAtSunset = document.querySelector('#locationsAtSunset');
-const locationsActual = document.querySelector('#locationsActual');
+// const locationsAtSunset = document.querySelector('#locationsAtSunset');
+// const locationsActual = document.querySelector('#locationsActual');
 
 
 // Daten der API abfragen
@@ -20,6 +20,7 @@ async function loadAllWeatherData() {
         return false;
     }
 }
+
 const allWeatherData = await loadAllWeatherData();
 console.log(allWeatherData);
 
@@ -80,7 +81,7 @@ sortedData.forEach(data => {
     </div>`;
 });
 
-locationsAtSunset.innerHTML = locationsAtSunsetHTML;
+// locationsAtSunset.innerHTML = locationsAtSunsetHTML;
 
 let locationsActualHTML = '';
 
@@ -96,7 +97,8 @@ sortedData.forEach(data => {
     </div>`;
 });
 
-locationsActual.innerHTML = locationsActualHTML;
+// locationsActual.innerHTML = locationsActualHTML;
+
 
 
 // leaflet.js Karte initialisieren
@@ -151,11 +153,11 @@ const kiteSpots = [
         windDirection: "Windrichtung:"
     },
     {
-        name: "Lahinch, IRL",
+        name: "Galway, IRL",
         lat: 53.0082,
         lng: -9.008316,
         description: "Wild Atlantic vibes with strong wind and great wave riding potential.",
-        sunset: "Sonnenuntergang:",
+        sunset: `"Sonnenuntergang:" ${locationsActualHTML}`,
         wind: "Wind:",
         windDirection: "Windrichtung:"
     }
