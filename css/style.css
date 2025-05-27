@@ -26,9 +26,25 @@ header {
     flex-wrap: wrap;
 }
 
-.menu_nav {
-    display: flex;
-    gap: 20px;
+.menu_nav_item {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    position: relative;
+    padding: 5px 10px;
+    transition: all 0.3s ease;
+}
+
+.menu_nav_item:hover {
+    color: rgb(20, 15, 15);
+    text-decoration: underline;
+    font-weight: bolder;
+}
+
+.logo_nav img {
+    height: 50px;
+    width: auto;
 }
 
 body > header,
@@ -53,6 +69,8 @@ footer {
   color: rgba(255, 255, 255, 0.842);
 }
 
+
+/* Map styles */
 #map  {
   width: 100%;
   height: 100%;
@@ -75,4 +93,29 @@ footer {
   text-align: center;
   z-index: 2;
   color: rgba(255, 255, 255, 0.842);
+}
+
+/* spots styles */
+
+.spotGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 50px;
+  padding: 100px;
+}
+
+.spotCard {
+  background-color: rgba(179, 179, 179, 0.8);
+  height: 350px;
+  padding: 30px;
+  display: flex;
+  flex-direction: left;
+  align-items: center;
+} 
+
+.spotCard img {
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+  object-fit: cover;
 }
