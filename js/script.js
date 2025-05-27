@@ -9,6 +9,10 @@ const unixToTime = (unix, timezone) => {
 // const locationsActual = document.querySelector('#locationsActual');
 
 
+// ----------- 
+// API DATEN
+// -----------
+
 // Daten der API abfragen
 async function loadAllWeatherData() {
     const url = 'https://api.open-meteo.com/v1/forecast?latitude=54,46.4,28.3,43,53&longitude=10,9.7,-14,3,-9&daily=sunset&hourly=temperature_2m,weather_code,wind_speed_10m,wind_direction_10m&current=temperature_2m,wind_speed_10m,wind_direction_10m&timezone=Europe%2FBerlin,Europe%2FBerlin,Europe%2FBerlin,Europe%2FBerlin,Europe%2FDublin&forecast_days=1&timeformat=unixtime'; // mit korrekter API-URL ersetzen
@@ -24,6 +28,10 @@ async function loadAllWeatherData() {
 const allWeatherData = await loadAllWeatherData();
 console.log(allWeatherData);
 
+
+// ----------- 
+// SONNENUNTERGANG DATEN FINDEN
+// -----------
 
 // Hilfsfunktion: Finde Index der Stunde, die dem Sonnenuntergang am nächsten ist
 function findClosestHourIndex(hourlyTimestamps, sunsetTimestamp) {
@@ -41,19 +49,23 @@ function findClosestHourIndex(hourlyTimestamps, sunsetTimestamp) {
     return closestIndex;
 }
 
+// ----------- 
+// ZUSATZINFORMATIONEN FÜR SPOTS
+// -----------
+
 // Zusatzinfo für die Spots
 const spotInfo = [
     {
       lat: 54.0,
       lng: 10.0,
-      name: "Kiel, DE",
+      name: "Kiel, DEU",
       description: "heute bei Sonnenuntergang in Kiel erwartet dich:",
       image: "assets/img/hamburg_n.jpeg"
     },
     {
       lat: 46.4,
       lng: 9.68,
-      name: "Silvaplana, CH",
+      name: "Silvaplana, CHE",
       description: "heute bei Sonnenuntergang in Silvaplana erwartet dich:",
       image: "assets/img/silvaplana_n.jpeg"
     },
@@ -148,7 +160,9 @@ sortedData.forEach(data => {
 
 // locationsActual.innerHTML = locationsActualHTML;
 
-
+// ----------- 
+// MAP PAGE
+// -----------
 
 // leaflet.js Karte initialisieren
 
@@ -188,4 +202,25 @@ sortedData.forEach(spot => {
     L.marker([spot.latitude, spot.longitude], {icon: customIcon})
         .addTo(map)
         .bindPopup(popupContent);
+});
+
+// -----------
+// SPOTS PAGE
+// ----------
+
+document.querySelectorAll('.spotCard').forEach(card => {
+    const name = card.dataset.name;
+    const data = sortedData.find(item => item.name === name);
+
+    if (data) {
+        const infoBox = card.querySelector('.spotInfo');
+
+        infoBox.innerHTML = `
+            <h3>${data.name}</h3>
+            <p>${data.description}</p>
+            <p><strong>Aktuell:</strong> ${data.temperatureActual}°C, ${data.windSpeedActual} km/h</p>
+            <p><strong>Zum Sonnenuntergang:</strong> ${data.temperature}°C, ${data.windSpeed} km/h</p>
+            <p><strong>Sonnenuntergang:</strong> ${data.sunset}</p>
+        `;
+    }
 });
