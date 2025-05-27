@@ -41,7 +41,7 @@ function findClosestHourIndex(hourlyTimestamps, sunsetTimestamp) {
     return closestIndex;
 }
 
-
+// Zusatzinfo für die Spots
 const spotInfo = [
     {
       lat: 54.0,
@@ -87,7 +87,7 @@ allWeatherData.forEach(data => {
     let sunsetUnix = data.daily.sunset[0];
     let sunsetIndex = findClosestHourIndex(data.hourly.time, sunsetUnix);
 
-    // Try to find the matching spot by comparing lat/lng
+    // passend Spot finden mit Koordinaten
     const match = spotInfo.find(spot =>
         Math.abs(spot.lat - data.latitude) < 0.01 && Math.abs(spot.lng - data.longitude) < 0.01
     );
@@ -105,7 +105,7 @@ allWeatherData.forEach(data => {
         latitude: data.latitude,
         sunsetIndex: sunsetIndex,
 
-        // Add the extra info to the data
+        // zusätzliche Informationen einfügen
         name: match?.name || "Unknown Spot",
         description: match?.description || "No description available.",
         image: match?.image || "assets/imgs/default.jpg"
@@ -155,7 +155,7 @@ sortedData.forEach(data => {
 // Initialize the map
 const map = L.map('map').setView([50, 10], 4);
       
-// Add OpenStreetMap tiles
+// OpenStreetMap "Filter" Layer hinzufügen
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
     subdomains: 'abcd',
@@ -164,7 +164,7 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png'
   
 
   
-// markers
+// Marker Icon erstellen 
 const customIcon = L.icon({
     iconUrl: 'assets/img/kiteschirm.png', 
     iconSize: [35, 35],                  
@@ -173,6 +173,7 @@ const customIcon = L.icon({
   });
 
 
+// Popup/Marker für jeden Spot hinzufügen
 sortedData.forEach(spot => {
     const popupContent = `
         <strong>${spot.name}</strong><br>
