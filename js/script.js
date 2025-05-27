@@ -142,12 +142,12 @@ sortedData.forEach(data => {
     dataForSpotsHTML += 
     `<div class="spotCard" data-name="Galway, IRL">
                 <img src="${data.imageDay}" alt="Galway">
-                <div class="spotInfo" id="galwayInfo">
-                    <h2>Zeit aktuell: ${data.time}</h2>
-                    <h2>Temperatur: ${data.temperatureActual}°</h2>
-                    <h2>Windgeschwindigkeit: ${data.windSpeed} km/h</h2>
-                    <h2>Windrichtung: ${data.windDirection}°</h2>
-                    <h2>Sonnenuntergang: ${data.sunset}</h2>
+                <div class="spotInfo">
+                    <p>Zeit aktuell: ${data.time}</p>
+                    <p>Temperatur: ${data.temperatureActual}°</p>
+                    <p>Windgeschwindigkeit: ${data.windSpeed} km/h</p>
+                    <p>Windrichtung: ${data.windDirection}°</p>
+                    <p>Sonnenuntergang: ${data.sunset}</p>
                 </div>
      </div>
     `;
