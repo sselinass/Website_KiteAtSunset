@@ -93,11 +93,11 @@ allWeatherData.forEach(data => {
     );
 
     sortedData.push({
-        temperature: data.hourly.temperature_2m,
+        temperature: data.hourly.temperature_2m[sunsetIndex],
         temperatureActual: data.current.temperature_2m,
-        windSpeed: data.hourly.wind_speed_10m,
+        windSpeed: data.hourly.wind_speed_10m[sunsetIndex],
         windSpeedActual: data.current.wind_speed_10m,
-        windDirection: data.hourly.wind_direction_10m,
+        windDirection: data.hourly.wind_direction_10m[sunsetIndex],
         windDirectionActual: data.current.wind_direction_10m,
         sunset: unixToTime(data.daily.sunset[0], data.timezone),
         time: unixToTime(data.current.time, data.timezone),
@@ -180,7 +180,7 @@ sortedData.forEach(spot => {
         <em>${spot.description}</em><br><br>
         Temperatur: ${spot.temperatureActual}°C<br>
         Wind: ${spot.windSpeedActual} km/h<br>
-        Windrichtung: ${spot.windDirectionActual}°<br>
+        Windrichtung: ${spot.windDirection}°<br>
         Sonnenuntergang: ${spot.sunset}
     `;
 
