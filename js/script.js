@@ -148,7 +148,7 @@ sortedData.forEach(data => {
                 <img src="${data.imageDay}" alt="Galway">
                 <div class="spotInfo">
                     <h1><strong>${data.name}</strong></h1>    
-                    <p>Zeit aktuell: ${data.time}</p>
+                    <p>lokale Zeit: ${data.time}</p>
                     <p>Temperatur: ${data.temperatureActual}°</p>
                     <p>Windgeschwindigkeit: ${data.windSpeedActual} km/h</p>
                     <p>Windrichtung: ${data.windDirectionActual}°</p>
