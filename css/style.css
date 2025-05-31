@@ -104,21 +104,46 @@ footer {
 
 /* SPOTS STYLES */
 
+.kiteGuideBox {
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(125, 26, 26, 0.925);
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.034);
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.842);
+  text-align: center;
+  z-index: 2;
+}
+
 .spotGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 50px;
   padding: 80px;
+  padding-top: 120px;
 }
+
 
 .spotCard {
   background-color: rgba(227, 222, 222, 0.688);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   height: 350px;
   padding: 30px;
   display: flex;
-  flex-direction: left;
+  flex-direction: left; 
   align-items: center;
 } 
+
+.spotCard:hover {
+  transform: scale(1.02);
+  background-color: rgb(200, 201, 202);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.5s ease-in-out;
+}
 
 .spotCard img {
   width: 50%;
@@ -128,6 +153,11 @@ footer {
   margin-right: 20px;
 }
 
+.spotCard.night {
+  background-color: #dd7835cc;
+  color: #000000;
+}
+
 .spotInfo {
   gap: 15px;
 }
@@ -135,11 +165,15 @@ footer {
 .spotInfo h1 {
   font-size: 1.5rem;
   color: rgb(70, 17, 17);
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
-.spotGrid :hover {
-  transform: scale(1.02);
-  transition: transform 0.5s ease;
-  background-color: rgb(200, 201, 202);
+.spotInfo p {
+  margin-top:5px;
+}
+
+.spotCard.night h3 {
+  font-size: 1.2rem;
+  color: rgb(70, 17, 17);
+  margin-bottom: 10px;
 }

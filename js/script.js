@@ -59,6 +59,8 @@ const spotInfo = [
       lng: 10.0,
       name: "Kiel, DEU",
       description: "heute bei Sonnenuntergang in Kiel erwartet dich:",
+      descriptionNight: "bei Sonnenuntergang",
+      descriptionDay: "aktuell",
       image: "assets/img/hamburg_n.jpeg",
       imageDay: "assets/img/hamburg_d.jpeg"
     },
@@ -67,6 +69,8 @@ const spotInfo = [
       lng: 9.68,
       name: "Silvaplana, CHE",
       description: "heute bei Sonnenuntergang in Silvaplana erwartet dich:",
+      descriptionNight: "bei Sonnenuntergang",
+      descriptionDay: "aktuell",
       image: "assets/img/silvaplana_n.jpeg",
       imageDay: "assets/img/silvaplana_d.jpeg"
     },
@@ -75,6 +79,8 @@ const spotInfo = [
       lng: -14.0,
       name: "Fuerteventura, ESP",
       description: "heute bei Sonnenuntergang in Fuerteventura erwartet dich:",
+      descriptionNight: "bei Sonnenuntergang",
+      descriptionDay: "aktuell",
       image: "assets/img/fuerteventura_n.jpeg",
       imageDay: "assets/img/fuerteventura_d.jpeg"
     },
@@ -83,6 +89,8 @@ const spotInfo = [
       lng: 3.0,
       name: "Leucate, FRA",
       description: "heute bei Sonnenuntergang in Leucate erwartet dich:",
+      descriptionNight: "bei Sonnenuntergang",
+      descriptionDay: "aktuell",
       image: "assets/img/narbonne_n.jpeg",
       imageDay: "assets/img/narbonne_d.jpeg"
     },
@@ -91,6 +99,8 @@ const spotInfo = [
       lng: -9.0,
       name: "Galway, IRL",
       description: "heute bei Sonnenuntergang in Galway erwartet dich:",
+      descriptionNight: "bei Sonnenuntergang",
+      descriptionDay: "aktuell",
       image: "assets/img/galway_n.jpeg",
       imageDay: "assets/img/galway_d.jpeg"
     }
@@ -127,6 +137,8 @@ allWeatherData.forEach(data => {
         // zusätzliche Informationen einfügen
         name: match?.name || "Unknown Spot",
         description: match?.description || "No description available.",
+        descriptionNight: match?.descriptionNight || "No description available at night.",
+        descriptionDay: match?.descriptionDay || "No description available during the day.",
         image: match?.image || "assets/imgs/default.jpg",
         imageDay: match?.imageDay || "assets/imgs/default_day.jpg"
     });
@@ -144,19 +156,64 @@ console.log(sortedData)
 let dataForSpotsHTML = '';
 sortedData.forEach(data => {
     dataForSpotsHTML += 
-    `<div class="spotCard" data-name="Galway, IRL">
-                <img src="${data.imageDay}" alt="Galway">
-                <div class="spotInfo">
-                    <h1><strong>${data.name}</strong></h1>    
-                    <p>lokale Zeit: ${data.time}</p>
-                    <p>Temperatur: ${data.temperatureActual}°</p>
-                    <p>Windgeschwindigkeit: ${data.windSpeedActual} km/h</p>
-                    <p>Windrichtung: ${data.windDirectionActual}°</p>
-                    <p>Sonnenuntergang: ${data.sunset}</p>
-                </div>
-     </div>
-    `;
+    `<div class="spotCard"
+         data-name="${data.name}"
+         data-image-day="${data.imageDay}"
+         data-image-night="${data.image}"
+         data-temp-day="${data.temperatureActual}"
+         data-temp-night="${data.temperature}"
+         data-wind-day="${data.windSpeedActual}"
+         data-wind-night="${data.windSpeed}"
+         data-dir-day="${data.windDirectionActual}"
+         data-dir-night="${data.windDirection}"
+         data-description="${data.description}"
+         data-description-night="${data.descriptionNight}"
+         data-description-day="${data.descriptionDay}">
+
+        <img src="${data.imageDay}" alt="${data.name}">
+        <div class="spotInfo">
+            <h1><strong>${data.name}</strong></h1>
+            <h3 class="description" style="display: none;">${data.descriptionNight}</h3>    
+            <p class="time">lokale Zeit: ${data.time}</p>
+            <p class="temp">Temperatur: ${data.temperatureActual}°</p>
+            <p class="wind">Windgeschwindigkeit: ${data.windSpeedActual} km/h</p>
+            <p class="dir">Windrichtung: ${data.windDirectionActual}°</p>
+            <p class="sunset">Sonnenuntergang: ${data.sunset}</p>
+        </div>
+     </div>`;
 });
 
 
 spotsActual.innerHTML = dataForSpotsHTML;
+
+
+
+document.querySelectorAll('.spotCard').forEach(card => {
+    let isNight = false;
+
+    card.addEventListener('click', () => {
+        isNight = !isNight;
+
+        const img = card.querySelector('img');
+        const temp = card.querySelector('.temp');
+        const wind = card.querySelector('.wind');
+        const dir = card.querySelector('.dir');
+        const desc = card.querySelector('.description');
+
+        if (isNight) {
+            card.classList.add('night');
+            desc.style.display = 'block';
+            img.src = card.dataset.imageNight;
+            temp.textContent = `Temperatur: ${card.dataset.tempNight}°`;
+            wind.textContent = `Windgeschwindigkeit: ${card.dataset.windNight} km/h`;
+            dir.textContent = `Windrichtung: ${card.dataset.dirNight}°`;
+        } else {
+            card.classList.remove('night');
+            img.src = card.dataset.imageDay;
+            temp.textContent = `Temperatur: ${card.dataset.tempDay}°`;
+            wind.textContent = `Windgeschwindigkeit: ${card.dataset.windDay} km/h`;
+            dir.textContent = `Windrichtung: ${card.dataset.dirDay}°`;
+            desc.style.display = 'none';
+        }
+    });
+});
