@@ -71,7 +71,7 @@ const spotInfo = [
     {
       lat: 28.3,
       lng: -14.0,
-      name: "Fuerteventura, ES",
+      name: "Fuerteventura, ESP",
       description: "heute bei Sonnenuntergang in Fuerteventura erwartet dich:",
       image: "assets/img/fuerteventura_n.jpeg"
     },
@@ -91,8 +91,10 @@ const spotInfo = [
     }
   ];
 
+// -----------
+// DATEN AUS API AUWÄHLEN
+// ----------
 
-// Daten aus der API auswählen
 let sortedData = [];
 allWeatherData.forEach(data => {
     let sunsetUnix = data.daily.sunset[0];
@@ -157,8 +159,8 @@ sortedData.forEach(spot => {
         <strong>${spot.name}</strong><br>
         <img src="${spot.image}" alt="${spot.name}" style="width: 100%; max-height: 180px; object-fit: cover; border-radius: 8px;" /><br>
         <em>${spot.description}</em><br><br>
-        Temperatur: ${spot.temperatureActual}°C<br>
-        Wind: ${spot.windSpeedActual} km/h<br>
+        Temperatur: ${spot.temperature}°C<br>
+        Wind: ${spot.windSpeed} km/h<br>
         Windrichtung: ${spot.windDirection}°<br>
         Sonnenuntergang: ${spot.sunset}
     `;

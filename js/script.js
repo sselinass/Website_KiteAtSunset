@@ -73,7 +73,7 @@ const spotInfo = [
     {
       lat: 28.3,
       lng: -14.0,
-      name: "Fuerteventura, ES",
+      name: "Fuerteventura, ESP",
       description: "heute bei Sonnenuntergang in Fuerteventura erwartet dich:",
       image: "assets/img/fuerteventura_n.jpeg",
       imageDay: "assets/img/fuerteventura_d.jpeg"
@@ -97,13 +97,16 @@ const spotInfo = [
   ];
 
 
-// Daten aus der API auswählen
+// -----------
+// DATEN AUS API AUWÄHLEN
+// ----------
+
 let sortedData = [];
 allWeatherData.forEach(data => {
     let sunsetUnix = data.daily.sunset[0];
     let sunsetIndex = findClosestHourIndex(data.hourly.time, sunsetUnix);
 
-    // passend Spot finden mit Koordinaten
+    // passenden Spot finden mit Koordinaten
     const match = spotInfo.find(spot =>
         Math.abs(spot.lat - data.latitude) < 0.01 && Math.abs(spot.lng - data.longitude) < 0.01
     );
@@ -130,6 +133,7 @@ allWeatherData.forEach(data => {
 });
 console.log(sortedData)
 
+
 // -----------
 // SPOTS PAGE
 // ----------  
@@ -143,10 +147,11 @@ sortedData.forEach(data => {
     `<div class="spotCard" data-name="Galway, IRL">
                 <img src="${data.imageDay}" alt="Galway">
                 <div class="spotInfo">
+                    <h1><strong>${data.name}</strong></h1>    
                     <p>Zeit aktuell: ${data.time}</p>
                     <p>Temperatur: ${data.temperatureActual}°</p>
-                    <p>Windgeschwindigkeit: ${data.windSpeed} km/h</p>
-                    <p>Windrichtung: ${data.windDirection}°</p>
+                    <p>Windgeschwindigkeit: ${data.windSpeedActual} km/h</p>
+                    <p>Windrichtung: ${data.windDirectionActual}°</p>
                     <p>Sonnenuntergang: ${data.sunset}</p>
                 </div>
      </div>
