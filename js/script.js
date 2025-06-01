@@ -217,3 +217,9 @@ document.querySelectorAll('.spotCard').forEach(card => {
         }
     });
 });
+
+
+// -----------
+// KITE GUIDE
+// -----------
+
