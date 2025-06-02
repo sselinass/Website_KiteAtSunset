@@ -1,4 +1,4 @@
-// Konstante für Zeitumwandlung
+// ZEITUMWANDLUNG
 const unixToTime = (unix, timezone) => {
     return new Date(unix * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', timeZone: timezone });
 };
@@ -12,7 +12,6 @@ let spotsActual = document.querySelector('#containerSpots');
 // API DATEN
 // -----------
 
-// Daten der API abfragen
 async function loadAllWeatherData() {
     const url = 'https://api.open-meteo.com/v1/forecast?latitude=54,46.4,28.3,43,53&longitude=10,9.7,-14,3,-9&daily=sunset&hourly=temperature_2m,weather_code,wind_speed_10m,wind_direction_10m&current=temperature_2m,wind_speed_10m,wind_direction_10m&timezone=Europe%2FBerlin,Europe%2FBerlin,Europe%2FBerlin,Europe%2FBerlin,Europe%2FDublin&forecast_days=1&timeformat=unixtime'; // mit korrekter API-URL ersetzen
     try {
@@ -52,7 +51,6 @@ function findClosestHourIndex(hourlyTimestamps, sunsetTimestamp) {
 // ZUSATZINFORMATIONEN FÜR SPOTS
 // -----------
 
-// Zusatzinfo für die Spots
 const spotInfo = [
     {
       lat: 54.0,
@@ -126,13 +124,12 @@ allWeatherData.forEach(data => {
 });
 console.log(sortedData)
 
+
 // ----------- 
 // MAP PAGE
 // -----------
 
 // leaflet.js Karte initialisieren
-
-// Initialize the map
 const map = L.map('map').setView([50, 10], 4);
       
 // OpenStreetMap "Filter" Layer hinzufügen
@@ -143,7 +140,6 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png'
   }).addTo(map);
   
 
-  
 // Marker Icon erstellen 
 const customIcon = L.icon({
     iconUrl: 'assets/img/kiteschirm.png', 

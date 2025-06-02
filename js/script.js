@@ -1,10 +1,10 @@
-// Konstante für Zeitumwandlung
+// ZEITUMWANDLUNG
 const unixToTime = (unix, timezone) => {
     return new Date(unix * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', timeZone: timezone });
 };
 
 
-// Konstanten aus dem HTML-Dokument
+// DOM ELEMENTE HTML
 let spotsActual = document.querySelector('#containerSpots');
 
 
@@ -52,7 +52,6 @@ function findClosestHourIndex(hourlyTimestamps, sunsetTimestamp) {
 // ZUSATZINFORMATIONEN FÜR SPOTS
 // -----------
 
-// Zusatzinfo für die Spots
 const spotInfo = [
     {
       lat: 54.0,
@@ -147,6 +146,11 @@ console.log(sortedData)
 
 
 // -----------
+// MAP PAGE seperates js file --> js/map.js
+// -----------
+
+
+// -----------
 // SPOTS PAGE
 // ----------  
 
@@ -183,9 +187,7 @@ sortedData.forEach(data => {
      </div>`;
 });
 
-
 spotsActual.innerHTML = dataForSpotsHTML;
-
 
 
 document.querySelectorAll('.spotCard').forEach(card => {
