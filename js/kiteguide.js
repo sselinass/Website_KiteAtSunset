@@ -60,6 +60,7 @@ const spotInfo = [
       lat: 54.0,
       lng: 10.0,
       name: "Kiel, DEU",
+      descriptionGuide: "heute in Kiel bei Sonnenuntergang braucht es für eine:n durchschnittliche:n Kiter:in:",
       description: "heute bei Sonnenuntergang in Kiel erwartet dich:",
       descriptionNight: "bei Sonnenuntergang",
       descriptionDay: "aktuell",
@@ -70,6 +71,7 @@ const spotInfo = [
       lat: 46.4,
       lng: 9.68,
       name: "Silvaplana, CHE",
+      descriptionGuide: "heute in Silvaplana bei Sonnenuntergang braucht es für eine:n durchschnittliche:n Kiter:in:",
       description: "heute bei Sonnenuntergang in Silvaplana erwartet dich:",
       descriptionNight: "bei Sonnenuntergang",
       descriptionDay: "aktuell",
@@ -80,7 +82,7 @@ const spotInfo = [
       lat: 28.3,
       lng: -14.0,
       name: "Fuerteventura, ESP",
-      descriptionGuide: "heute in Fuerteventura brauchst du bei Sonnenuntergang:",
+      descriptionGuide: "heute in Fuerteventura bei Sonnenuntergang braucht es für eine:n durchschnittliche:n Kiter:in:",
       description: "heute bei Sonnenuntergang in Fuerteventura erwartet dich:",
       descriptionNight: "bei Sonnenuntergang",
       descriptionDay: "aktuell",
@@ -91,6 +93,7 @@ const spotInfo = [
       lat: 43.0,
       lng: 3.0,
       name: "Leucate, FRA",
+      descriptionGuide: "heute in Leucate bei Sonnenuntergang braucht es für eine:n durchschnittliche:n Kiter:in:",
       description: "heute bei Sonnenuntergang in Leucate erwartet dich:",
       descriptionNight: "bei Sonnenuntergang",
       descriptionDay: "aktuell",
@@ -101,6 +104,7 @@ const spotInfo = [
       lat: 53.0,
       lng: -9.0,
       name: "Galway, IRL",
+      descriptionGuide: "heute in Galway bei Sonnenuntergang braucht es für eine:n durchschnittliche:n Kiter:in:",
       description: "heute bei Sonnenuntergang in Galway erwartet dich:",
       descriptionNight: "bei Sonnenuntergang",
       descriptionDay: "aktuell",
@@ -139,6 +143,7 @@ allWeatherData.forEach(data => {
 
         // zusätzliche Informationen einfügen
         name: match?.name || "Unknown Spot",
+        descriptionGuide: match?.descriptionGuide || "No guide description available.",
         description: match?.description || "No description available.",
         descriptionNight: match?.descriptionNight || "No description available at night.",
         descriptionDay: match?.descriptionDay || "No description available during the day.",
@@ -171,13 +176,7 @@ locationSelect.addEventListener("change", () => {
 
     // Rückmeldung aktualisieren
     kiteInfoBox.innerHTML = `
-        <p>${spot.description}</p>
-        <ul>
-            <li><strong>Aktuelle Temperatur:</strong> ${spot.temperatureActual} °C</li>
-            <li><strong>Aktueller Wind:</strong> ${spot.windSpeedActual} km/h aus ${spot.windDirectionActual}°</li>
-            <li><strong>Sonnenuntergang:</strong> ${spot.sunset}</li>
-            <li><strong>Wind bei Sonnenuntergang:</strong> ${spot.windSpeed} km/h</li>
-            <li><strong>Temperatur bei Sonnenuntergang:</strong> ${spot.temperature} °C</li>
-        </ul>
+        <p>${spot.descriptionGuide}</p>
+        <strong>Windgeschwindigkeit bei Sonnenuntergang:</strong> ${spot.windSpeed} km/h
     `;
 });
