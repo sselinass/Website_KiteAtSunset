@@ -1,3 +1,5 @@
+console.log("Script loaded");
+
 // ZEITUMWANDLUNG
 const unixToTime = (unix, timezone) => {
     return new Date(unix * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', timeZone: timezone });
@@ -5,7 +7,8 @@ const unixToTime = (unix, timezone) => {
 
 
 // DOM ELEMENTE HTML
-let spotsActual = document.querySelector('#containerSpots');
+const locationSelect = document.getElementById("kiteLocationSelect");
+const kiteInfoBox = document.getElementById("kiteInfoBox");
 
 
 // ----------- 
@@ -77,6 +80,7 @@ const spotInfo = [
       lat: 28.3,
       lng: -14.0,
       name: "Fuerteventura, ESP",
+      descriptionGuide: "heute in Fuerteventura brauchst du bei Sonnenuntergang:",
       description: "heute bei Sonnenuntergang in Fuerteventura erwartet dich:",
       descriptionNight: "bei Sonnenuntergang",
       descriptionDay: "aktuell",
@@ -144,83 +148,36 @@ allWeatherData.forEach(data => {
 });
 console.log(sortedData)
 
-
 // -----------
-// MAP PAGE seperates js file --> js/map.js
+// KITE GUIDE
 // -----------
 
+locationSelect.addEventListener("change", () => {
+    const selectedName = locationSelect.value;
 
-// -----------
-// SPOTS PAGE
-// ----------  
+    // falls keine Location ausgewählt ist
+    if (!selectedName) {
+        kiteInfoBox.innerHTML = "Bitte wähle einen Standort.";
+        return;
+    }
 
+    // passenden Spot finden
+    const spot = sortedData.find(s => s.name.includes(selectedName));
 
-// Daten über DOM in HTML einfügen
+    if (!spot) {
+        kiteInfoBox.innerHTML = "Keine Wetterdaten gefunden.";
+        return;
+    }
 
-let dataForSpotsHTML = '';
-sortedData.forEach(data => {
-    dataForSpotsHTML += 
-    `<div class="spotCard"
-         data-name="${data.name}"
-         data-image-day="${data.imageDay}"
-         data-image-night="${data.image}"
-         data-temp-day="${data.temperatureActual}"
-         data-temp-night="${data.temperature}"
-         data-wind-day="${data.windSpeedActual}"
-         data-wind-night="${data.windSpeed}"
-         data-dir-day="${data.windDirectionActual}"
-         data-dir-night="${data.windDirection}"
-         data-description="${data.description}"
-         data-description-night="${data.descriptionNight}"
-         data-description-day="${data.descriptionDay}">
-
-        <img src="${data.imageDay}" alt="${data.name}">
-        <div class="spotInfo">
-            <h1><strong>${data.name}</strong></h1>
-            <h3 class="description" style="display: none;">${data.descriptionNight}</h3>    
-            <p class="time">lokale Zeit: ${data.time}</p>
-            <p class="temp">Temperatur: ${data.temperatureActual}°</p>
-            <p class="wind">Windgeschwindigkeit: ${data.windSpeedActual} km/h</p>
-            <p class="dir">Windrichtung: ${data.windDirectionActual}°</p>
-            <p class="sunset">Sonnenuntergang: ${data.sunset}</p>
-        </div>
-     </div>`;
+    // Rückmeldung aktualisieren
+    kiteInfoBox.innerHTML = `
+        <p>${spot.description}</p>
+        <ul>
+            <li><strong>Aktuelle Temperatur:</strong> ${spot.temperatureActual} °C</li>
+            <li><strong>Aktueller Wind:</strong> ${spot.windSpeedActual} km/h aus ${spot.windDirectionActual}°</li>
+            <li><strong>Sonnenuntergang:</strong> ${spot.sunset}</li>
+            <li><strong>Wind bei Sonnenuntergang:</strong> ${spot.windSpeed} km/h</li>
+            <li><strong>Temperatur bei Sonnenuntergang:</strong> ${spot.temperature} °C</li>
+        </ul>
+    `;
 });
-
-spotsActual.innerHTML = dataForSpotsHTML;
-
-
-document.querySelectorAll('.spotCard').forEach(card => {
-    let isNight = false;
-
-    card.addEventListener('click', () => {
-        isNight = !isNight;
-
-        const img = card.querySelector('img');
-        const temp = card.querySelector('.temp');
-        const wind = card.querySelector('.wind');
-        const dir = card.querySelector('.dir');
-        const desc = card.querySelector('.description');
-
-        if (isNight) {
-            card.classList.add('night');
-            desc.style.display = 'block';
-            img.src = card.dataset.imageNight;
-            temp.textContent = `Temperatur: ${card.dataset.tempNight}°`;
-            wind.textContent = `Windgeschwindigkeit: ${card.dataset.windNight} km/h`;
-            dir.textContent = `Windrichtung: ${card.dataset.dirNight}°`;
-        } else {
-            card.classList.remove('night');
-            img.src = card.dataset.imageDay;
-            temp.textContent = `Temperatur: ${card.dataset.tempDay}°`;
-            wind.textContent = `Windgeschwindigkeit: ${card.dataset.windDay} km/h`;
-            dir.textContent = `Windrichtung: ${card.dataset.dirDay}°`;
-            desc.style.display = 'none';
-        }
-    });
-});
-
-
-// -----------
-// KITE GUIDE separates js file --> js/kiteguide.js // hat sonst nicht funktioniert 
-// -----------

@@ -154,7 +154,7 @@ sortedData.forEach(spot => {
     const popupContent = `
         <strong>${spot.name}</strong><br>
         <img src="${spot.image}" alt="${spot.name}" style="width: 100%; max-height: 180px; object-fit: cover; border-radius: 8px;" /><br>
-        <em>${spot.description}</em><br><br>
+        <em>${spot.description}</em><br>
         Temperatur: ${spot.temperature}°C<br>
         Wind: ${spot.windSpeed} km/h<br>
         Windrichtung: ${spot.windDirection}°<br>
