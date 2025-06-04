@@ -4,7 +4,7 @@
 
 ein Projekt von Selina Schöpfer, mmp24b
 
-Webseite: im2.selina-schoepfer.ch
+Webseite: https://im2.selina-schoepfer.ch
 
 # Kurzbeschreibung des Projekts
 
