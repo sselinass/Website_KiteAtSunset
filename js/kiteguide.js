@@ -61,7 +61,7 @@ const spotInfo = [
       lat: 54.0,
       lng: 10.0,
       name: "Kiel, DEU",
-      descriptionGuide: "heute in Kiel bei Sonnenuntergang braucht es für eine:n durchschnittliche:n Kiter:in:",
+      descriptionGuide: "heute in <strong>Kiel</strong> bei Sonnenuntergang braucht es für eine:n durchschnittliche:n Kiter:in:",
       description: "heute bei Sonnenuntergang in Kiel erwartet dich:",
       descriptionNight: "bei Sonnenuntergang",
       descriptionDay: "aktuell",
@@ -72,7 +72,7 @@ const spotInfo = [
       lat: 46.4,
       lng: 9.68,
       name: "Silvaplana, CHE",
-      descriptionGuide: "heute in Silvaplana bei Sonnenuntergang braucht es für eine:n durchschnittliche:n Kiter:in:",
+      descriptionGuide: "heute in <strong>Silvaplana</strong> bei Sonnenuntergang braucht es für eine:n durchschnittliche:n Kiter:in:",
       description: "heute bei Sonnenuntergang in Silvaplana erwartet dich:",
       descriptionNight: "bei Sonnenuntergang",
       descriptionDay: "aktuell",
@@ -83,7 +83,7 @@ const spotInfo = [
       lat: 28.3,
       lng: -14.0,
       name: "Fuerteventura, ESP",
-      descriptionGuide: "heute in Fuerteventura bei Sonnenuntergang braucht es für eine:n durchschnittliche:n Kiter:in:",
+      descriptionGuide: "heute in <strong>Fuerteventura</strong> bei Sonnenuntergang braucht es für eine:n durchschnittliche:n Kiter:in:",
       description: "heute bei Sonnenuntergang in Fuerteventura erwartet dich:",
       descriptionNight: "bei Sonnenuntergang",
       descriptionDay: "aktuell",
@@ -94,7 +94,7 @@ const spotInfo = [
       lat: 43.0,
       lng: 3.0,
       name: "Leucate, FRA",
-      descriptionGuide: "heute in Leucate bei Sonnenuntergang braucht es für eine:n durchschnittliche:n Kiter:in:",
+      descriptionGuide: "heute in <strong>Leucate</strong> bei Sonnenuntergang braucht es für eine:n durchschnittliche:n Kiter:in:",
       description: "heute bei Sonnenuntergang in Leucate erwartet dich:",
       descriptionNight: "bei Sonnenuntergang",
       descriptionDay: "aktuell",
@@ -105,7 +105,7 @@ const spotInfo = [
       lat: 53.0,
       lng: -9.0,
       name: "Galway, IRL",
-      descriptionGuide: "heute in Galway bei Sonnenuntergang braucht es für eine:n durchschnittliche:n Kiter:in:",
+      descriptionGuide: "heute in <strong>Galway</strong> bei Sonnenuntergang braucht es für eine:n durchschnittliche:n Kiter:in:",
       description: "heute bei Sonnenuntergang in Galway erwartet dich:",
       descriptionNight: "bei Sonnenuntergang",
       descriptionDay: "aktuell",
@@ -184,6 +184,7 @@ locationSelect.addEventListener("change", () => {
     // falls keine Location ausgewählt ist
     if (!selectedName) {
         kiteInfoBox.innerHTML = "Bitte wähle einen Standort.";
+        kiteElements.forEach(el => el.classList.remove("selected"));
         return;
     }
 
@@ -204,17 +205,14 @@ locationSelect.addEventListener("change", () => {
     // Rückmeldung aktualisieren
     kiteInfoBox.innerHTML = `
         <p>${spot.descriptionGuide}</p>
-        <p><strong>Windgeschwindigkeit bei Sonnenuntergang:</strong> ${windSpeedAtSunsetKmH} km/h</p>
         <p><strong>Empfohlene Kite-Grösse:</strong> ${recommendedKite}</p>
+        <p><strong>Windgeschwindigkeit bei Sonnenuntergang:</strong> ${windSpeedAtSunsetKmH} km/h</p>
     `;
-});
 
-
-document.querySelectorAll(".kite").forEach(el => {
-    el.classList.remove("selected");
-
-    const kiteSize = el.dataset.size;
-    if (recommendedKite.includes(kiteSize)) {
-        el.classList.add("selected");
-    }
+    kiteElements.forEach(el => {
+        el.classList.remove("selected");
+        if (recommendedKite.includes(el.dataset.size)) {
+            el.classList.add("selected");
+        }
+    });
 });
