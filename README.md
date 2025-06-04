@@ -34,7 +34,7 @@ Parameter:
 - Windrichtung aktuell / Windrichtung bei Sonnenungergang 
 
 API:
-open-meteo.com 
+https://open-meteo.com 
 
 
 # Learnings und Schwierigkeiten
@@ -54,5 +54,5 @@ primär
 sekundär
 - W3schools: https://www.w3schools.com/css/default.asp
 - ChatGPT: zur Unterstützung für die Einbettung der leaflet Karte sowie JavaScript Schritte zum erfolgreichen Anzeigen und Verknüpfen komplexeren Arbeitsschritte
-- leafletjs.com: für Karte auf Hauptseite sowie Marker und Pop Up's
+- leafletjs.com: https://leafletjs.com/ für Karte auf Hauptseite sowie Marker und Pop Up's
 - GitHub Copilot: einfache Strukturaufgaben konnte ich so schneller und effizienter ausführen sowie gewisse Styling Vorschläge anwenden
