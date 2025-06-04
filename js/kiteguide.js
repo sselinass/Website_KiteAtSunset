@@ -206,7 +206,7 @@ locationSelect.addEventListener("change", () => {
     kiteInfoBox.innerHTML = `
         <p>${spot.descriptionGuide}</p>
         <p><strong>Empfohlene Kite-Grösse:</strong> ${recommendedKite}</p>
-        <p><strong>Windgeschwindigkeit bei Sonnenuntergang:</strong> ${windSpeedAtSunsetKmH} km/h</p>
+        <p><strong>Windgeschwindigkeit:</strong> ${windSpeedAtSunsetKmH} km/h</p>
     `;
 
     kiteElements.forEach(el => {

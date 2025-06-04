@@ -139,7 +139,7 @@ footer {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.089);
   font-size: 0.8rem;
   text-align: center;
-  z-index: 2;
+  z-index: 1;
   color: rgb(255, 255, 255);
 }
 
@@ -353,7 +353,7 @@ footer {
 @media (max-width: 768px) {
   .spotGrid {
     grid-template-columns: 1fr;
-    padding: 130px 30px;
+    padding: 130px 30px 30px 30px;
     gap: 30px;
   }
 
