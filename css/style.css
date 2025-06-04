@@ -209,11 +209,6 @@ footer {
   height: 100vh;
 }
 
-.kiteGuide h2 {
-  margin-bottom: 20px;
-  font-size: 2rem;
-}
-
 #kiteOptions {
   display: flex;
   justify-content: space-around;
@@ -244,7 +239,7 @@ footer {
   font-size: 1rem;
   margin-bottom: 20px;
   display: flex;
-  margin: 100px;
+  margin: 20px 100px;
 }
 
 #kiteInfoBox {
@@ -255,7 +250,7 @@ footer {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   font-size: 1rem;
   line-height: 1.5;
-  margin: 100px;
+  margin: 0px 100px;
 }
 
 
