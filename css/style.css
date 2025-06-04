@@ -4,9 +4,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-p, h1, h2, h3, h4, h5, h6 {
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -45,7 +42,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
+    padding: 0px 20px;
     flex-wrap: wrap;
 }
 
@@ -249,14 +246,21 @@ footer {
   margin: 5px;
 }
 
+.kite .wind-speed {
+  display: none;
+  font-size: 1.2rem;
+  color: #ffffff;
+  margin-top: 8px;
+  font-weight: 800;
+}
+
 .kite img {
   width: 130px;
   height: auto;
-  filter: opacity(1);
 }
 
 .kite.selected {
-  border: 5px solid #ffffff;
+  border: 3px solid #ffffff;
   box-shadow: 0 0 15px 3px rgba(255, 165, 0, 0.6);
   transform: scale(1.3);
   transition: transform 0.3s ease;
@@ -264,13 +268,24 @@ footer {
 
 .kite:hover {
   transform: scale(1.05);
+  transition: transform 0.3s ease-in-out;
   box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.7);
+}
+
+.kite:hover .wind-speed {
+  display: inline-block;
+}
+
+.kite-size {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: white;
 }
 
 #kiteLocationSelect {
   width: 100%;
   max-width: 400px;
-  padding: 10px;
+  padding: 30px 20px;
   background-color: #441615;
   color: white;
   border-radius: 12px;
@@ -295,6 +310,31 @@ footer {
 
 
 /* @ MEDIA QUERIES */
+
+/* HEADER */
+
+@media (max-width: 768px) {
+  header {
+    height: 60px;
+  }
+
+  header h1 {
+    font-size: 1.2rem;
+    margin-left: 10px;
+  }
+
+  .menu_nav {
+    gap: 8px;
+}
+
+  .menu_nav_item {
+    font-size: 1rem;
+  }
+
+  .logo_nav img {
+    height: 30px;
+  }
+}
 
 /* MAP */
 
@@ -362,5 +402,55 @@ footer {
 
   .spotInfo p {
     font-size: 1.1rem;
+  }
+}
+
+
+/* KITEGUIDE */
+
+@media (max-width: 1200px) {
+  #kiteOptions {
+    gap: 5px;
+  }
+  
+  .kite img {
+    height: 100px;
+    width: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .kiteOptions {
+    max-width: 70%;
+    margin: 50px auto;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .kite img {
+    height: 60px;
+    width: auto;
+  }
+
+  .kite-size {
+    font-size: 1.2rem;
+  }
+
+  #kiteLocationSelect {
+    width: 70%;
+    max-width: none;
+    padding: 20px;
+    font-size: 1rem;
+  }
+
+  #kiteInfoBox {
+    padding: 15px;
+    font-size: 0.9rem;
+    max-width: none;
+    width: 70%;
+  }
+
+  .kiteGuideSection {
+    min-height: calc(100vh - 60px);
   }
 }
