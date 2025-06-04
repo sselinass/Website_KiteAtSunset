@@ -9,6 +9,7 @@ const unixToTime = (unix, timezone) => {
 // DOM ELEMENTE HTML
 const locationSelect = document.getElementById("kiteLocationSelect");
 const kiteInfoBox = document.getElementById("kiteInfoBox");
+const kiteElements = document.querySelectorAll(".kite");
 
 
 // ----------- 
@@ -169,7 +170,7 @@ function getRecommendedKite(windSpeedKmH) {
     } else if (windSpeedKmH >= 22) {
         return "12 m²";
     } else {
-        return "Keine Empfehlung – zu wenig Wind bei Sonnenuntergang";
+        return "heute leider keine Kite Session - zu wenig Wind";
     }
 }
 
@@ -204,6 +205,16 @@ locationSelect.addEventListener("change", () => {
     kiteInfoBox.innerHTML = `
         <p>${spot.descriptionGuide}</p>
         <p><strong>Windgeschwindigkeit bei Sonnenuntergang:</strong> ${windSpeedAtSunsetKmH} km/h</p>
-        <p><strong>Empfohlene Kite-Größe:</strong> ${recommendedKite}</p>
+        <p><strong>Empfohlene Kite-Grösse:</strong> ${recommendedKite}</p>
     `;
+});
+
+
+document.querySelectorAll(".kite").forEach(el => {
+    el.classList.remove("selected");
+
+    const kiteSize = el.dataset.size;
+    if (recommendedKite.includes(kiteSize)) {
+        el.classList.add("selected");
+    }
 });
