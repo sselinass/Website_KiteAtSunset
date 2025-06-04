@@ -154,6 +154,26 @@ allWeatherData.forEach(data => {
 console.log(sortedData)
 
 // -----------
+// Kitegrössenempfehlung basierend auf Windgeschwindigkeit
+// -----------
+
+function getRecommendedKite(windSpeedKmH) {
+    if (windSpeedKmH >= 65) {
+        return "7 m²";
+    } else if (windSpeedKmH >= 53) {
+        return "8 m²";
+    } else if (windSpeedKmH >= 46) {
+        return "9 m²";
+    } else if (windSpeedKmH >= 37) {
+        return "10 m²";
+    } else if (windSpeedKmH >= 22) {
+        return "12 m²";
+    } else {
+        return "Keine Empfehlung – zu wenig Wind bei Sonnenuntergang";
+    }
+}
+
+// -----------
 // KITE GUIDE
 // -----------
 
@@ -174,9 +194,16 @@ locationSelect.addEventListener("change", () => {
         return;
     }
 
+    // Windgeschwindigkeit bei Sonnenuntergang in km/h
+    const windSpeedAtSunsetKmH = spot.windSpeed;
+
+    // empfohlene Kite-Größe ermitteln
+    const recommendedKite = getRecommendedKite(windSpeedAtSunsetKmH);
+
     // Rückmeldung aktualisieren
     kiteInfoBox.innerHTML = `
         <p>${spot.descriptionGuide}</p>
-        <strong>Windgeschwindigkeit bei Sonnenuntergang:</strong> ${spot.windSpeed} km/h
+        <p><strong>Windgeschwindigkeit bei Sonnenuntergang:</strong> ${windSpeedAtSunsetKmH} km/h</p>
+        <p><strong>Empfohlene Kite-Größe:</strong> ${recommendedKite}</p>
     `;
 });

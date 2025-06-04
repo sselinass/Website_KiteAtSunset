@@ -188,3 +188,8 @@ footer {
 }
 
 /* KTIEGUIDE STYLES */
+
+.kite.recommended {
+    border: 2px solid #ff9900;
+    background-color: #ffcc00;
+}
